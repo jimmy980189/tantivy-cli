@@ -16,6 +16,8 @@ use tantivy::Document;
 use tantivy::Index;
 use tantivy::IndexWriter;
 use time::Instant;
+use tantivy::tokenizer::*;
+use tantivy_jieba;
 
 pub fn run_index_cli(argmatch: &ArgMatches) -> Result<(), String> {
     let index_directory = PathBuf::from(argmatch.value_of("index").unwrap());
@@ -50,7 +52,11 @@ fn run_index(
     num_threads: usize,
     no_merge: bool,
 ) -> tantivy::Result<()> {
+    let my_tokenizer = tantivy_jieba::JiebaTokenizer {};
     let index = Index::open_in_dir(&directory)?;
+    index
+        .tokenizers()
+        .register("jieba", my_tokenizer);
     let schema = index.schema();
     let (line_sender, line_receiver) = chan::sync(10_000);
     let (doc_sender, doc_receiver) = chan::sync(10_000);

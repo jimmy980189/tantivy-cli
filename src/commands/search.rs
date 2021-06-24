@@ -10,6 +10,8 @@ use tantivy::query::QueryParser;
 use tantivy::schema::Field;
 use tantivy::schema::FieldType;
 use tantivy::{Index, TERMINATED};
+use tantivy::tokenizer::*;
+use tantivy_jieba;
 
 pub fn run_search_cli(matches: &ArgMatches) -> Result<(), String> {
     let index_directory = PathBuf::from(matches.value_of("index").unwrap());
@@ -18,7 +20,11 @@ pub fn run_search_cli(matches: &ArgMatches) -> Result<(), String> {
 }
 
 fn run_search(directory: &Path, query: &str) -> tantivy::Result<()> {
+    let my_tokenizer = tantivy_jieba::JiebaTokenizer {};
     let index = Index::open_in_dir(directory)?;
+    index
+        .tokenizers()
+        .register("jieba", my_tokenizer);
     let schema = index.schema();
     let default_fields: Vec<Field> = schema
         .fields()

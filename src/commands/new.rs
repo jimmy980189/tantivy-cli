@@ -108,7 +108,7 @@ fn ask_add_field_text(field_name: &str, schema_builder: &mut SchemaBuilder) {
     if prompt_yn("Should the field be indexed") {
         let mut text_indexing_options = TextFieldIndexing::default()
             .set_index_option(IndexRecordOption::Basic)
-            .set_tokenizer("en_stem");
+            .set_tokenizer("jieba");
 
         if prompt_yn("Should the term be tokenized?") {
             if prompt_yn("Should the term frequencies (per doc) be in the index") {

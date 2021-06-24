@@ -18,6 +18,7 @@ use iron::mime::Mime;
 use iron::prelude::*;
 use iron::status;
 use iron::typemap::Key;
+use iron_cors::CorsMiddleware;
 use mount::Mount;
 use persistent::Read;
 use serde_derive::Serialize;
@@ -72,7 +73,11 @@ struct IndexServer {
 
 impl IndexServer {
     fn load(path: &Path) -> tantivy::Result<IndexServer> {
+        let my_tokenizer = tantivy_jieba::JiebaTokenizer {};
         let index = Index::open_in_dir(path)?;
+        index
+            .tokenizers()
+            .register("jieba", my_tokenizer);
         let schema = index.schema();
         let default_fields: Vec<Field> = schema
             .fields()
@@ -198,6 +203,8 @@ fn run_serve(directory: PathBuf, host: &str) -> tantivy::Result<()> {
 
     let mut middleware = Chain::new(mount);
     middleware.link(Read::<IndexServer>::both(server));
+    let cors_middleware = CorsMiddleware::with_allow_any();
+    middleware.link_around(cors_middleware);
 
     println!("listening on http://{}", host);
     Iron::new(middleware).http(host).unwrap();
