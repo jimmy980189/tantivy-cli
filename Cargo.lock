@@ -119,6 +119,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
 
 [[package]]
+name = "cedarwood"
+version = "0.4.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "963e82c7b94163808ca3a452608d260b64ba5bc7b5653b4af1af59887899f48d"
+dependencies = [
+ "smallvec",
+]
+
+[[package]]
 name = "census"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -446,6 +455,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "fxhash"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
+dependencies = [
+ "byteorder",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -475,6 +493,12 @@ checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
 dependencies = [
  "ahash",
 ]
+
+[[package]]
+name = "hashbrown"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab5ef0d4909ef3724cc8cce6ccc8572c5c817592e9285f5464f8e86f8bd3726e"
 
 [[package]]
 name = "hermit-abi"
@@ -553,6 +577,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "iron-cors"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24b02b8856c7f14e443c483e802cf0ce693f3bec19f49d2c9a242b18f88c9b70"
+dependencies = [
+ "iron",
+ "log 0.4.14",
+]
+
+[[package]]
 name = "itertools"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -566,6 +600,21 @@ name = "itoa"
 version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd25036021b0de88a0aff6b850051563c6516d0bf53f8638938edbb9de732736"
+
+[[package]]
+name = "jieba-rs"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fea3b3172a80f9958abc3b9a637e4e311cd696dc6813440e5cc929b8a5311055"
+dependencies = [
+ "cedarwood",
+ "fxhash",
+ "hashbrown 0.11.2",
+ "lazy_static",
+ "phf 0.8.0",
+ "phf_codegen 0.8.0",
+ "regex",
+]
 
 [[package]]
 name = "language-tags"
@@ -615,7 +664,7 @@ version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f374d42cdfc1d7dbf3d3dec28afab2eb97ffbf43a3234d795b5986dbf4b90ba"
 dependencies = [
- "hashbrown",
+ "hashbrown 0.9.1",
 ]
 
 [[package]]
@@ -674,8 +723,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "216929a5ee4dd316b1702eedf5e74548c123d370f47841ceaac38ca154690ca3"
 dependencies = [
  "mime",
- "phf",
- "phf_codegen",
+ "phf 0.7.24",
+ "phf_codegen 0.7.24",
  "unicase",
 ]
 
@@ -761,7 +810,16 @@ version = "0.7.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b3da44b85f8e8dfaec21adae67f95d93244b2ecf6ad2a692320598dcc8e6dd18"
 dependencies = [
- "phf_shared",
+ "phf_shared 0.7.24",
+]
+
+[[package]]
+name = "phf"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3dfb61232e34fcb633f43d12c58f83c1df82962dcdfa565a4e866ffc17dafe12"
+dependencies = [
+ "phf_shared 0.8.0",
 ]
 
 [[package]]
@@ -770,8 +828,18 @@ version = "0.7.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b03e85129e324ad4166b06b2c7491ae27fe3ec353af72e72cd1654c7225d517e"
 dependencies = [
- "phf_generator",
- "phf_shared",
+ "phf_generator 0.7.24",
+ "phf_shared 0.7.24",
+]
+
+[[package]]
+name = "phf_codegen"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbffee61585b0411840d3ece935cce9cb6321f01c45477d30066498cd5e1a815"
+dependencies = [
+ "phf_generator 0.8.0",
+ "phf_shared 0.8.0",
 ]
 
 [[package]]
@@ -780,8 +848,18 @@ version = "0.7.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09364cc93c159b8b06b1f4dd8a4398984503483891b0c26b867cf431fb132662"
 dependencies = [
- "phf_shared",
+ "phf_shared 0.7.24",
  "rand 0.6.5",
+]
+
+[[package]]
+name = "phf_generator"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "17367f0cc86f2d25802b2c26ee58a7b23faeccf78a396094c13dced0d0182526"
+dependencies = [
+ "phf_shared 0.8.0",
+ "rand 0.7.3",
 ]
 
 [[package]]
@@ -790,8 +868,17 @@ version = "0.7.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "234f71a15de2288bcb7e3b6515828d22af7ec8598ee6d24c3b526fa0a80b67a0"
 dependencies = [
- "siphasher",
+ "siphasher 0.2.3",
  "unicase",
+]
+
+[[package]]
+name = "phf_shared"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c00cf8b9eafe68dde5e9eaa2cef8ee84a9336a47d566ec55ca16589633b65af7"
+dependencies = [
+ "siphasher 0.3.5",
 ]
 
 [[package]]
@@ -894,7 +981,7 @@ dependencies = [
  "rand_isaac",
  "rand_jitter",
  "rand_os",
- "rand_pcg",
+ "rand_pcg 0.1.2",
  "rand_xorshift",
  "winapi",
 ]
@@ -910,6 +997,7 @@ dependencies = [
  "rand_chacha 0.2.2",
  "rand_core 0.5.1",
  "rand_hc 0.2.0",
+ "rand_pcg 0.2.1",
 ]
 
 [[package]]
@@ -1056,6 +1144,15 @@ checksum = "abf9b09b01790cfe0364f52bf32995ea3c39f4d2dd011eac241d2914146d0b44"
 dependencies = [
  "autocfg 0.1.7",
  "rand_core 0.4.2",
+]
+
+[[package]]
+name = "rand_pcg"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16abd0c1b639e9eb4d7c50c0b8100b0d0f849be2349829c740fe8e6eb4816429"
+dependencies = [
+ "rand_core 0.5.1",
 ]
 
 [[package]]
@@ -1244,6 +1341,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b8de496cf83d4ed58b6be86c3a275b8602f6ffe98d3024a869e124147a9a3ac"
 
 [[package]]
+name = "siphasher"
+version = "0.3.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbce6d4507c7e4a3962091436e56e95290cb71fa302d0d270e32130b75fbff27"
+
+[[package]]
 name = "slab"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1356,9 +1459,9 @@ dependencies = [
 
 [[package]]
 name = "tantivy"
-version = "0.15.0"
+version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "80d9c498d5cc0f6019931e1624bd5e9e1e5fd1f9eb8e1f71886c8fa6b2fd13cb"
+checksum = "e45451287b44d9e136814f99e414fc67a8939c87d674c30008456a8aba1d4768"
 dependencies = [
  "base64 0.13.0",
  "bitpacking",
@@ -1415,6 +1518,7 @@ dependencies = [
  "env_logger",
  "futures",
  "iron",
+ "iron-cors",
  "log 0.4.14",
  "mount",
  "persistent",
@@ -1423,6 +1527,7 @@ dependencies = [
  "serde_json",
  "staticfile",
  "tantivy",
+ "tantivy-jieba",
  "time 0.2.26",
  "urlencoded",
 ]
@@ -1436,6 +1541,17 @@ dependencies = [
  "byteorder",
  "regex-syntax 0.4.2",
  "utf8-ranges",
+]
+
+[[package]]
+name = "tantivy-jieba"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a6d7262d7d021ddf6131d79d9f54066f37f8cc51d6447bf696564b3c2feb7d3"
+dependencies = [
+ "jieba-rs",
+ "lazy_static",
+ "tantivy",
 ]
 
 [[package]]
